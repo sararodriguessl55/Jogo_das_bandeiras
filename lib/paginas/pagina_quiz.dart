@@ -15,7 +15,7 @@ class PaginaQuiz extends StatefulWidget {
 }
 
 class _EstadoPaginaQuiz extends State<PaginaQuiz> {
-  static const int _duracaoQuiz = 60;
+  static const int _duracaoQuiz = 30;
 
   late final GeradorQuiz _geradorQuiz;
   late IdiomaApp _idioma;
