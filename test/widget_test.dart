@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jogo1/main.dart';
 
 void main() {
-  testWidgets('menu, idiomas, países e quiz de 60 segundos', (tester) async {
+  testWidgets('menu, idiomas, países e quiz com resultados', (tester) async {
     await tester.pumpWidget(const MyApp());
     for (
       var tentativa = 0;
@@ -19,7 +19,7 @@ void main() {
     await tester.tap(find.text('Ver países'));
     await tester.pumpAndSettle();
     expect(find.textContaining('Países ('), findsOneWidget);
-    expect(find.text('Afghanistan'), findsOneWidget);
+    expect(find.text('Afeganistão'), findsOneWidget);
 
     await tester.pageBack();
     await tester.pumpAndSettle();
@@ -42,11 +42,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 500));
     await tester.tap(find.byType(OutlinedButton).first);
     await tester.pump();
-    expect(find.text('Próxima pergunta'), findsOneWidget);
-
-    await tester.ensureVisible(find.text('Próxima pergunta'));
-    await tester.tap(find.text('Próxima pergunta'));
-    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 700));
     expect(find.text('Pergunta 2'), findsOneWidget);
 
     await tester.tap(find.text('EN').last);
@@ -62,6 +58,10 @@ void main() {
     }
 
     expect(find.textContaining('Time is up!'), findsOneWidget);
+    expect(find.text('Results'), findsOneWidget);
+    expect(find.textContaining('Correct ('), findsOneWidget);
+    expect(find.textContaining('Incorrect ('), findsOneWidget);
+    expect(find.text('Not answered'), findsOneWidget);
     expect(find.text('Play again'), findsOneWidget);
   });
 }

@@ -25,7 +25,11 @@ class _EstadoListaPaises extends State<ListaPaises> {
   Widget build(BuildContext context) {
     final textos = TextosApp(_idioma);
     final paisesOrdenados = List<Pais>.of(widget.paises)
-      ..sort((primeiro, segundo) => primeiro.nome.compareTo(segundo.nome));
+      ..sort(
+        (primeiro, segundo) => textos
+            .nomePais(primeiro)
+            .compareTo(textos.nomePais(segundo)),
+      );
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +58,7 @@ class _EstadoListaPaises extends State<ListaPaises> {
                     const SizedBox(width: 48, child: Icon(Icons.flag_outlined)),
               ),
             ),
-            title: Text(pais.nome),
+            title: Text(textos.nomePais(pais)),
             subtitle: Text(
               textos.codigosPais(
                 pais.codigoContinente,
