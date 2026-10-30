@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jogo1/model.dart';
+import 'package:jogo1/modelo_ranque.dart';
 
 enum IdiomaApp { portugues, ingles }
 
@@ -209,6 +210,40 @@ class TextosApp {
   String nomePais(Pais pais) =>
       _portugues ? _nomesPaisesPtBr[pais.codigoAlfa2] ?? pais.nome : pais.nome;
 
+  String nomeContinente(Continente continente) {
+    if (_portugues) {
+      return switch (continente) {
+        Continente.todos => 'Todos os continentes',
+        Continente.africa => 'África',
+        Continente.america => 'América',
+        Continente.antarctica => 'Antártida',
+        Continente.asia => 'Ásia',
+        Continente.europa => 'Europa',
+        Continente.oceania => 'Oceania',
+      };
+    }
+
+    return switch (continente) {
+      Continente.todos => 'All continents',
+      Continente.africa => 'Africa',
+      Continente.america => 'Americas',
+      Continente.antarctica => 'Antarctica',
+      Continente.asia => 'Asia',
+      Continente.europa => 'Europe',
+      Continente.oceania => 'Oceania',
+    };
+  }
+
+  String resumoRanque(ResultadoRanque resultado) => _portugues
+      ? '${resultado.pontos}/${resultado.total} · '
+            '${(resultado.aproveitamento * 100).round()}% · '
+            '${resultado.duracaoSegundos}s · '
+            '${nomeContinente(resultado.continente)}'
+      : '${resultado.pontos}/${resultado.total} · '
+            '${(resultado.aproveitamento * 100).round()}% · '
+            '${resultado.duracaoSegundos}s · '
+            '${nomeContinente(resultado.continente)}';
+
   String get tituloInicial => _portugues ? 'Quiz de Bandeiras' : 'Flags Quiz';
   String get erroCarregamento => _portugues
       ? 'Não foi possível carregar os países.'
@@ -222,6 +257,36 @@ class TextosApp {
       : 'Test your knowledge with $quantidade countries.';
   String get comecarQuiz => _portugues ? 'Começar quiz' : 'Start quiz';
   String get verPaises => _portugues ? 'Ver países' : 'View countries';
+  String get duracaoQuiz => _portugues ? 'Duração do quiz' : 'Quiz duration';
+  String get selecionarContinente =>
+      _portugues ? 'Escolha um continente' : 'Choose a continent';
+  String get verRanque => _portugues ? 'Ver ranque' : 'View leaderboard';
+  String get tituloRanque => _portugues ? 'Ranque local' : 'Local leaderboard';
+  String get salvarNoRanque =>
+      _portugues ? 'Salvar no ranque' : 'Save to leaderboard';
+  String get naoSalvarRanque =>
+      _portugues ? 'Não salvar' : 'Do not save';
+  String get nomeJogador => _portugues ? 'Seu nome' : 'Your name';
+  String get confirmarSalvar =>
+      _portugues ? 'Salvar resultado' : 'Save result';
+  String get resultadoSalvo =>
+      _portugues ? 'Resultado salvo no ranque.' : 'Result saved to leaderboard.';
+  String get resultadoNaoSalvo =>
+      _portugues ? 'Resultado não salvo no ranque.' : 'Result not saved.';
+  String get erroSalvarRanque => _portugues
+      ? 'Não foi possível salvar o resultado.'
+      : 'Could not save the result.';
+  String get ranqueVazio => _portugues
+      ? 'Ainda não há resultados salvos neste filtro.'
+      : 'There are no saved results for this filter yet.';
+  String get filtroTempoRanque =>
+      _portugues ? 'Tempo da partida' : 'Game duration';
+  String get posicaoRanque => _portugues ? 'Posição' : 'Rank';
+  String get nomeObrigatorio =>
+      _portugues ? 'Digite seu nome para continuar.' : 'Enter your name to continue.';
+  String continenteSemPaises(String continente) => _portugues
+      ? '$continente ainda não tem bandeiras nesta versão.'
+      : '$continente does not have any flags in this version yet.';
   String get tituloQuiz => _portugues ? 'Quiz de bandeiras' : 'Flags quiz';
   String pergunta(int numero) =>
       _portugues ? 'Pergunta $numero' : 'Question $numero';

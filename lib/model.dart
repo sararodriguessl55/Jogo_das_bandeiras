@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/services.dart';
 
+enum Continente { todos, africa, america, antarctica, asia, europa, oceania }
+
 class Pais {
   const Pais({
     required this.codigoContinente,
@@ -30,6 +32,30 @@ class Pais {
 
   @override
   String toString() => '$nome ($codigoAlfa2)';
+}
+
+extension ContinentePais on Pais {
+  Continente get continente {
+    switch (codigoContinente) {
+      case 'AF':
+        return Continente.africa;
+      case 'NA':
+      case 'SA':
+        return Continente.america;
+      case 'AQ':
+        return Continente.antarctica;
+      case 'AS':
+        return Continente.asia;
+      case 'EU':
+        return Continente.europa;
+      case 'OC':
+        return Continente.oceania;
+      default:
+        throw FormatException(
+          'Código de continente desconhecido: $codigoContinente',
+        );
+    }
+  }
 }
 
 Future<List<Pais>> carregarPaises() async {
